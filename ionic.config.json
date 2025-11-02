@@ -1,0 +1,7 @@
+{
+  "name": "Teachers App",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
