@@ -76,11 +76,13 @@ export const homeworkSubmissionsAPI = {
     }),
 
   // Grade homework submission
-  grade: (id, gradeData) =>
-    apiRequest(`/homework-submissions/${id}`, {
-      method: "PATCH",
-      body: JSON.stringify(gradeData),
-    }),
+  grade: (id, taskType) =>
+    apiRequest(
+      `/homework-submissions/sections/${id}/check-writing?taskType=${taskType}`,
+      {
+        method: "POST",
+      }
+    ),
 
   // Delete homework submission
   delete: (id) =>

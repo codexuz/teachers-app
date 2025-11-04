@@ -33,6 +33,7 @@
   },
   "tabs": {
     "main": "Main",
+    "homeworks": "Homeworks",
     "wallet": "Wallet",
     "profile": "Profile"
   },
@@ -211,5 +212,94 @@
     "updateSuccess": "Profile updated successfully",
     "updateFailed": "Failed to update profile",
     "failedToLoad": "Failed to load profile data"
+  },
+  "homeworks": {
+    "studentsCount": "{count} student | {count} students",
+    "viewHomeworks": "View Homeworks",
+    "noGroups": "No Groups Found",
+    "noGroupsDescription": "You don't have any groups yet. Create a group to start managing homeworks."
+  },
+  "homeworkDetails": {
+    "title": "Group Homeworks",
+    "createHomework": "Create Homework",
+    "createFirstHomework": "Create First Homework",
+    "noHomeworks": "No Homeworks Yet",
+    "noHomeworksDescription": "This group doesn't have any homeworks yet. Create one to get started.",
+    "dueDate": "Due Date",
+    "submissions": "Submissions",
+    "status": {
+      "active": "Active",
+      "expired": "Expired",
+      "completed": "Completed",
+      "draft": "Draft",
+      "overdue": "Overdue"
+    }
+  },
+  "homeworkSubmissions": {
+    "title": "Homework Submissions",
+    "totalSubmissions": "Total Submissions",
+    "averageScore": "Average Score",
+    "exercises": "exercises",
+    "excellent": "Excellent",
+    "good": "Good",
+    "average": "Average",
+    "needsWork": "Needs Work",
+    "noSubmissions": "No Submissions Yet",
+    "noSubmissionsDescription": "Students haven't submitted this homework yet."
+  },
+  "submissionDetails": {
+    "title": "Submission Details",
+    "submittedOn": "Submitted On",
+    "exercisesCompleted": "Exercises Completed",
+    "exerciseResults": "Exercise Results",
+    "exerciseId": "Exercise ID",
+    "averageScore": "Average Score",
+    "highestScore": "Highest Score",
+    "lowestScore": "Lowest Score",
+    "excellent": "Excellent",
+    "good": "Good",
+    "average": "Average",
+    "needsWork": "Needs Work",
+    "sections": {
+      "grammar": "Grammar",
+      "listening": "Listening",
+      "reading": "Reading",
+      "writing": "Writing",
+      "speaking": "Speaking"
+    }
+  },
+  "writingAssessment": {
+    "title": "Writing Assessment",
+    "studentWriting": "Student Writing",
+    "originalText": "Original Text",
+    "correctedText": "Corrected Text",
+    "assessmentDetails": "Assessment Details",
+    "sectionType": "Section Type",
+    "sectionScore": "Section Score",
+    "completedAt": "Completed At",
+    "taskResponse": "Task Response",
+    "coherence": "Coherence & Cohesion",
+    "vocabulary": "Vocabulary",
+    "grammar": "Grammar",
+    "overallFeedback": "Overall Feedback",
+    "taskResponseFeedback": "Task Response Feedback",
+    "coherenceFeedback": "Coherence Feedback",
+    "vocabularyFeedback": "Vocabulary Feedback",
+    "grammarFeedback": "Grammar Feedback",
+    "taskType": "Task Type",
+    "assessedAt": "Assessed At",
+    "assessWriting": "Assess Writing",
+    "assessing": "Assessing...",
+    "assessmentComplete": "Assessment completed successfully",
+    "assessmentFailed": "Failed to assess writing",
+    "noSectionData": "No section data available for assessment",
+    "noAssessmentYet": "No Assessment Yet",
+    "noAssessmentDescription": "This writing hasn't been assessed yet. Click the button below to generate an AI assessment with detailed feedback and scoring.",
+    "editAssessment": "Edit Assessment",
+    "editFeatureComingSoon": "Edit feature coming soon",
+    "excellent": "Excellent",
+    "good": "Good",
+    "average": "Average",
+    "needsWork": "Needs Work"
   }
 }

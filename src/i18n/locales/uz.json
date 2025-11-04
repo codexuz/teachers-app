@@ -34,6 +34,7 @@
   },
   "tabs": {
     "main": "Asosiy",
+    "homeworks": "Uy ishlari",
     "wallet": "Hamyon",
     "profile": "Profil"
   },
@@ -212,5 +213,94 @@
     "updateSuccess": "Profil muvaffaqiyatli yangilandi",
     "updateFailed": "Profilni yangilashda xatolik",
     "failedToLoad": "Profil ma'lumotlarini yuklashda xatolik"
+  },
+  "homeworks": {
+    "studentsCount": "{count} ta o'quvchi",
+    "viewHomeworks": "Uy ishlarini ko'rish",
+    "noGroups": "Guruhlar topilmadi",
+    "noGroupsDescription": "Sizda hali guruhlar yo'q. Uy ishlarini boshqarishni boshlash uchun guruh yarating."
+  },
+  "homeworkDetails": {
+    "title": "Guruh uy ishlari",
+    "createHomework": "Uy ishi yaratish",
+    "createFirstHomework": "Birinchi uy ishini yaratish",
+    "noHomeworks": "Hali uy ishlari yo'q",
+    "noHomeworksDescription": "Bu guruhda hali uy ishlari yo'q. Boshlash uchun birini yarating.",
+    "dueDate": "Topshirish muddati",
+    "submissions": "Topshirilgan ishlar",
+    "status": {
+      "active": "Faol",
+      "expired": "Muddati o'tgan",
+      "completed": "Tugallangan",
+      "draft": "Qoralama",
+      "overdue": "Muddati o'tgan"
+    }
+  },
+  "homeworkSubmissions": {
+    "title": "Topshirilgan uy ishlari",
+    "totalSubmissions": "Jami ishlar",
+    "averageScore": "O'rtacha ball",
+    "exercises": "mashqlar",
+    "excellent": "A'lo",
+    "good": "Yaxshi",
+    "average": "O'rtacha",
+    "needsWork": "Yaxshilash kerak",
+    "noSubmissions": "Hali ishlar yo'q",
+    "noSubmissionsDescription": "Talabalar hali bu uy ishini topshirmagan."
+  },
+  "submissionDetails": {
+    "title": "Ish tafsilotlari",
+    "submittedOn": "Topshirilgan sana",
+    "exercisesCompleted": "Bajarilgan mashqlar",
+    "exerciseResults": "Mashq natijalari",
+    "exerciseId": "Mashq ID",
+    "averageScore": "O'rtacha ball",
+    "highestScore": "Eng yuqori ball",
+    "lowestScore": "Eng past ball",
+    "excellent": "A'lo",
+    "good": "Yaxshi",
+    "average": "O'rtacha",
+    "needsWork": "Yaxshilash kerak",
+    "sections": {
+      "grammar": "Grammatika",
+      "listening": "Tinglash",
+      "reading": "O'qish",
+      "writing": "Yozish",
+      "speaking": "Gapirish"
+    }
+  },
+  "writingAssessment": {
+    "title": "Yozish baholash",
+    "studentWriting": "Talaba yozgan matn",
+    "originalText": "Asl matn",
+    "correctedText": "Tuzatilgan matn",
+    "assessmentDetails": "Baholash tafsilotlari",
+    "sectionType": "Bo'lim turi",
+    "sectionScore": "Bo'lim balli",
+    "completedAt": "Tugallangan vaqt",
+    "taskResponse": "Topshiriqqa javob",
+    "coherence": "Izchillik va bog'lanish",
+    "vocabulary": "Lug'at boyligi",
+    "grammar": "Grammatika",
+    "overallFeedback": "Umumiy baholash",
+    "taskResponseFeedback": "Topshiriq bo'yicha fikr",
+    "coherenceFeedback": "Izchillik bo'yicha fikr",
+    "vocabularyFeedback": "Lug'at bo'yicha fikr",
+    "grammarFeedback": "Grammatika bo'yicha fikr",
+    "taskType": "Topshiriq turi",
+    "assessedAt": "Baholangan vaqt",
+    "assessWriting": "Yozishni baholash",
+    "assessing": "Baholanmoqda...",
+    "assessmentComplete": "Baholash muvaffaqiyatli yakunlandi",
+    "assessmentFailed": "Yozishni baholashda xatolik",
+    "noSectionData": "Baholash uchun bo'lim ma'lumotlari yo'q",
+    "noAssessmentYet": "Hali baholanmagan",
+    "noAssessmentDescription": "Bu yozuv hali baholanmagan. AI baholash va batafsil fikr-mulohaza olish uchun quyidagi tugmani bosing.",
+    "editAssessment": "Baholashni tahrirlash",
+    "editFeatureComingSoon": "Tahrirlash funksiyasi tez orada",
+    "excellent": "A'lo",
+    "good": "Yaxshi",
+    "average": "O'rtacha",
+    "needsWork": "Yaxshilash kerak"
   }
 }

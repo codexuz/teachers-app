@@ -34,6 +34,7 @@
   },
   "tabs": {
     "main": "Главная",
+    "homeworks": "Домашние",
     "wallet": "Кошелек",
     "profile": "Профиль"
   },
@@ -212,5 +213,94 @@
     "updateSuccess": "Профиль успешно обновлен",
     "updateFailed": "Не удалось обновить профиль",
     "failedToLoad": "Не удалось загрузить данные профиля"
+  },
+  "homeworks": {
+    "studentsCount": "{count} студент | {count} студентов",
+    "viewHomeworks": "Посмотреть домашние",
+    "noGroups": "Группы не найдены",
+    "noGroupsDescription": "У вас пока нет групп. Создайте группу, чтобы начать управлять домашними заданиями."
+  },
+  "homeworkDetails": {
+    "title": "Домашние задания группы",
+    "createHomework": "Создать домашнее задание",
+    "createFirstHomework": "Создать первое задание",
+    "noHomeworks": "Пока нет заданий",
+    "noHomeworksDescription": "У этой группы пока нет домашних заданий. Создайте одно, чтобы начать.",
+    "dueDate": "Срок сдачи",
+    "submissions": "Сдано работ",
+    "status": {
+      "active": "Активное",
+      "expired": "Просрочено",
+      "completed": "Завершено",
+      "draft": "Черновик",
+      "overdue": "Просрочено"
+    }
+  },
+  "homeworkSubmissions": {
+    "title": "Выполненные задания",
+    "totalSubmissions": "Всего работ",
+    "averageScore": "Средний балл",
+    "exercises": "упражнений",
+    "excellent": "Отлично",
+    "good": "Хорошо",
+    "average": "Средне",
+    "needsWork": "Нужно подтянуть",
+    "noSubmissions": "Пока нет работ",
+    "noSubmissionsDescription": "Студенты еще не сдали это домашнее задание."
+  },
+  "submissionDetails": {
+    "title": "Детали работы",
+    "submittedOn": "Сдано",
+    "exercisesCompleted": "Выполнено упражнений",
+    "exerciseResults": "Результаты упражнений",
+    "exerciseId": "ID упражнения",
+    "averageScore": "Средний балл",
+    "highestScore": "Высший балл",
+    "lowestScore": "Низший балл",
+    "excellent": "Отлично",
+    "good": "Хорошо",
+    "average": "Средне",
+    "needsWork": "Нужно подтянуть",
+    "sections": {
+      "grammar": "Грамматика",
+      "listening": "Аудирование",
+      "reading": "Чтение",
+      "writing": "Письмо",
+      "speaking": "Говорение"
+    }
+  },
+  "writingAssessment": {
+    "title": "Оценка письма",
+    "studentWriting": "Письменная работа студента",
+    "originalText": "Оригинальный текст",
+    "correctedText": "Исправленный текст",
+    "assessmentDetails": "Детали оценки",
+    "sectionType": "Тип секции",
+    "sectionScore": "Балл секции",
+    "completedAt": "Завершено",
+    "taskResponse": "Ответ на задание",
+    "coherence": "Связность и целостность",
+    "vocabulary": "Словарный запас",
+    "grammar": "Грамматика",
+    "overallFeedback": "Общий отзыв",
+    "taskResponseFeedback": "Отзыв по заданию",
+    "coherenceFeedback": "Отзыв по связности",
+    "vocabularyFeedback": "Отзыв по словарю",
+    "grammarFeedback": "Отзыв по грамматике",
+    "taskType": "Тип задания",
+    "assessedAt": "Оценено",
+    "assessWriting": "Оценить письмо",
+    "assessing": "Оценивание...",
+    "assessmentComplete": "Оценка успешно завершена",
+    "assessmentFailed": "Не удалось оценить письмо",
+    "noSectionData": "Нет данных секции для оценки",
+    "noAssessmentYet": "Оценка еще не проведена",
+    "noAssessmentDescription": "Это письмо еще не оценено. Нажмите кнопку ниже, чтобы создать ИИ-оценку с подробными отзывами и баллами.",
+    "editAssessment": "Редактировать оценку",
+    "editFeatureComingSoon": "Функция редактирования скоро появится",
+    "excellent": "Отлично",
+    "good": "Хорошо",
+    "average": "Средне",
+    "needsWork": "Нужно подтянуть"
   }
 }

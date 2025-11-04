@@ -139,7 +139,7 @@ import {
   alertController,
   IonGrid,
   IonRow,
-  IOnCol
+  IonCol
 } from "@ionic/vue";
 import {
   peopleOutline,

@@ -26,6 +26,21 @@ const routes: Array<RouteRecordRaw> = [
     meta: { requiresAuth: true },
   },
   {
+    path: "/group/:id/homeworks",
+    component: () => import("@/views/HomeworkDetailsPage.vue"),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/group/:id/homework/:homeworkId/submissions",
+    component: () => import("@/views/HomeworkSubmissionsPage.vue"),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/writing-assessment",
+    component: () => import("@/views/WritingAssessmentPage.vue"),
+    meta: { requiresAuth: true },
+  },
+  {
     path: "/profile-update",
     component: () => import("@/views/ProfileUpdatePage.vue"),
     meta: { requiresAuth: true },
@@ -42,6 +57,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "main",
         component: () => import("@/views/MainPage.vue"),
+      },
+      {
+        path: "homeworks",
+        component: () => import("@/views/HomeworksPage.vue"),
       },
       {
         path: "wallet",

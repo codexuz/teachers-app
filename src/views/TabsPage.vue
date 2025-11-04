@@ -8,6 +8,11 @@
           <ion-label>{{ $t("tabs.main") }}</ion-label>
         </ion-tab-button>
 
+        <ion-tab-button tab="homeworks" href="/tabs/homeworks">
+          <ion-icon aria-hidden="true" :icon="libraryOutline" />
+          <ion-label>{{ $t("tabs.homeworks") }}</ion-label>
+        </ion-tab-button>
+
         <ion-tab-button tab="wallet" href="/tabs/wallet">
           <ion-icon aria-hidden="true" :icon="wallet" />
           <ion-label>{{ $t("tabs.wallet") }}</ion-label>
@@ -32,5 +37,5 @@ import {
   IonPage,
   IonRouterOutlet,
 } from "@ionic/vue";
-import { home, wallet, person } from "ionicons/icons";
+import { home, wallet, person, libraryOutline } from "ionicons/icons";
 </script>
