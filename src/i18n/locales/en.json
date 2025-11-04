@@ -49,7 +49,17 @@
     "paused": "Paused",
     "failedToLoad": "Failed to load groups",
     "totalStudents": "Total Students",
-    "totalGroups": "Total Groups"
+    "totalGroups": "Total Groups",
+    "createGroup": "Create Group",
+    "groupName": "Group Name",
+    "groupNamePlaceholder": "Enter group name",
+    "level": "Level",
+    "selectLevel": "Select a level",
+    "roomPlaceholder": "e.g., Room 101",
+    "groupCreated": "Group created successfully",
+    "deleteGroup": "Delete Group",
+    "confirmDeleteGroup": "Are you sure you want to delete the group \"{name}\"? This action cannot be undone.",
+    "groupDeleted": "Group deleted successfully"
   },
   "wallet": {
     "wallet": "Wallet",
@@ -150,7 +160,18 @@
     "statusUpdated": "Student status updated successfully",
     "deleteStudent": "Delete Student",
     "confirmDeleteStudent": "Are you sure you want to remove this student from the group?",
-    "studentDeleted": "Student removed from group successfully"
+    "studentDeleted": "Student removed from group successfully",
+    "transferStudent": "Transfer Student",
+    "selectTargetGroup": "Select group to transfer {name} to:",
+    "transfer": "Transfer",
+    "confirmTransfer": "Confirm Transfer",
+    "confirmTransferMessage": "Are you sure you want to transfer {name} to \"{group}\"?",
+    "studentTransferred": "Student transferred successfully",
+    "noOtherGroups": "No other groups available",
+    "searchGroups": "Search groups...",
+    "noGroupsFound": "No groups found",
+    "tryDifferentSearch": "Try a different search query",
+    "teacher": "Teacher"
   },
   "language": {
     "title": "Select Language",

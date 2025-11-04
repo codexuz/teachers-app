@@ -12,61 +12,76 @@
     </ion-header>
 
     <ion-content :fullscreen="true">
-      <div class="add-student-container">
-        <!-- Search Bar -->
-        <ion-searchbar
-          v-model="searchQuery"
-          :placeholder="$t('addStudent.searchPlaceholder')"
-          @ionInput="handleSearch"
-        ></ion-searchbar>
-
-        <!-- Loading -->
-        <ion-spinner
-          v-if="isLoading"
-          name="crescent"
-          class="loading-spinner"
-        ></ion-spinner>
-
-        <!-- Empty State -->
-        <div v-else-if="filteredStudents.length === 0" class="empty-state">
-          <ion-icon :icon="searchOutline" class="empty-icon"></ion-icon>
-          <h3>{{ $t("addStudent.noStudentsFound") }}</h3>
-          <p>{{ $t("addStudent.tryDifferentSearch") }}</p>
-        </div>
-
-        <!-- Students List -->
-        <ion-list v-else class="students-list">
-          <ion-item
-            v-for="student in filteredStudents"
-            :key="student.id || student.user_id"
-            button
-            @click="selectStudent(student)"
-            class="student-item"
+      <ion-grid>
+        <ion-row>
+          <ion-col
+            size-lg="8"
+            size-md="10"
+            size-sm="12"
+            offset-lg="2"
+            offset-md="1"
           >
-            <div class="student-avatar" slot="start">
-              <img
-                v-if="student.avatar_url"
-                :src="student.avatar_url"
-                :alt="student.first_name"
-              />
-              <ion-icon v-else :icon="personCircleOutline"></ion-icon>
+            <div class="add-student-container">
+              <!-- Search Bar -->
+              <ion-searchbar
+                v-model="searchQuery"
+                :placeholder="$t('addStudent.searchPlaceholder')"
+                @ionInput="handleSearch"
+              ></ion-searchbar>
+
+              <!-- Loading -->
+              <ion-spinner
+                v-if="isLoading"
+                name="crescent"
+                class="loading-spinner"
+              ></ion-spinner>
+
+              <!-- Empty State -->
+              <div
+                v-else-if="filteredStudents.length === 0"
+                class="empty-state"
+              >
+                <ion-icon :icon="searchOutline" class="empty-icon"></ion-icon>
+                <h3>{{ $t("addStudent.noStudentsFound") }}</h3>
+                <p>{{ $t("addStudent.tryDifferentSearch") }}</p>
+              </div>
+
+              <!-- Students List -->
+              <ion-list v-else class="students-list">
+                <ion-item
+                  v-for="student in filteredStudents"
+                  :key="student.id || student.user_id"
+                  button
+                  @click="selectStudent(student)"
+                  class="student-item"
+                >
+                  <div class="student-avatar" slot="start">
+                    <img
+                      v-if="student.avatar_url"
+                      :src="student.avatar_url"
+                      :alt="student.first_name"
+                    />
+                    <ion-icon v-else :icon="personCircleOutline"></ion-icon>
+                  </div>
+
+                  <ion-label>
+                    <h2>{{ student.first_name }} {{ student.last_name }}</h2>
+                    <p>@{{ student.username }}</p>
+                    <p v-if="student.email">{{ student.email }}</p>
+                  </ion-label>
+
+                  <ion-icon
+                    v-if="isStudentInGroup(student.id || student.user_id)"
+                    :icon="checkmarkCircleOutline"
+                    color="success"
+                    slot="end"
+                  ></ion-icon>
+                </ion-item>
+              </ion-list>
             </div>
-
-            <ion-label>
-              <h2>{{ student.first_name }} {{ student.last_name }}</h2>
-              <p>@{{ student.username }}</p>
-              <p v-if="student.email">{{ student.email }}</p>
-            </ion-label>
-
-            <ion-icon
-              v-if="isStudentInGroup(student.id || student.user_id)"
-              :icon="checkmarkCircleOutline"
-              color="success"
-              slot="end"
-            ></ion-icon>
-          </ion-item>
-        </ion-list>
-      </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-content>
   </ion-page>
 </template>
@@ -91,6 +106,9 @@ import {
   IonSpinner,
   toastController,
   alertController,
+  IonGrid,
+  IonRow,
+  IonCol,
 } from "@ionic/vue";
 import {
   personCircleOutline,
@@ -244,6 +262,15 @@ onMounted(() => {
 </script>
 
 <style scoped>
+ion-grid {
+  padding: 0;
+  height: 100%;
+}
+
+ion-row {
+  height: 100%;
+}
+
 .add-student-container {
   padding: 0;
   min-height: 100%;

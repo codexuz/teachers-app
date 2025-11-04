@@ -10,91 +10,103 @@
     </ion-header>
 
     <ion-content :fullscreen="true">
-      <div class="profile-update-container">
-        <!-- Loading -->
-        <ion-spinner
-          v-if="isLoading"
-          name="crescent"
-          class="loading-spinner"
-        ></ion-spinner>
+      <ion-grid>
+        <ion-row>
+          <ion-col
+            size-lg="8"
+            size-md="10"
+            size-sm="12"
+            offset-lg="2"
+            offset-md="1"
+          >
+            <div class="profile-update-container">
+              <!-- Loading -->
+              <ion-spinner
+                v-if="isLoading"
+                name="crescent"
+                class="loading-spinner"
+              ></ion-spinner>
 
-        <!-- Update Form -->
-        <div v-else class="update-form">
-          <div class="avatar-section">
-            <div class="avatar">
-              <ion-icon :icon="personCircleOutline"></ion-icon>
+              <!-- Update Form -->
+              <div v-else class="update-form">
+                <div class="avatar-section">
+                  <div class="avatar">
+                    <ion-icon :icon="personCircleOutline"></ion-icon>
+                  </div>
+                </div>
+
+                <ion-list>
+                  <!-- First Name -->
+                  <ion-item>
+                    <ion-label position="stacked">{{
+                      $t("profileUpdate.firstName")
+                    }}</ion-label>
+                    <ion-input
+                      v-model="formData.first_name"
+                      type="text"
+                      :placeholder="$t('profileUpdate.enterFirstName')"
+                    ></ion-input>
+                  </ion-item>
+
+                  <!-- Last Name -->
+                  <ion-item>
+                    <ion-label position="stacked">{{
+                      $t("profileUpdate.lastName")
+                    }}</ion-label>
+                    <ion-input
+                      v-model="formData.last_name"
+                      type="text"
+                      :placeholder="$t('profileUpdate.enterLastName')"
+                    ></ion-input>
+                  </ion-item>
+
+                  <!-- Username -->
+                  <ion-item>
+                    <ion-label position="stacked">{{
+                      $t("profileUpdate.username")
+                    }}</ion-label>
+                    <ion-input
+                      v-model="formData.username"
+                      type="text"
+                      :placeholder="$t('profileUpdate.enterUsername')"
+                      :disabled="true"
+                    ></ion-input>
+                  </ion-item>
+
+                  <!-- Phone Number -->
+                  <ion-item>
+                    <ion-label position="stacked">{{
+                      $t("profileUpdate.phoneNumber")
+                    }}</ion-label>
+                    <ion-input
+                      v-model="formData.phone"
+                      type="tel"
+                      :placeholder="$t('profileUpdate.enterPhoneNumber')"
+                    ></ion-input>
+                  </ion-item>
+                </ion-list>
+
+                <!-- Save Button -->
+                <div class="button-container">
+                  <ion-button
+                    expand="block"
+                    @click="saveProfile"
+                    :disabled="isSaving || !isFormValid"
+                  >
+                    <ion-icon
+                      v-if="!isSaving"
+                      :icon="saveOutline"
+                      slot="start"
+                    ></ion-icon>
+                    <ion-spinner v-if="isSaving" slot="start"></ion-spinner>
+                    {{ isSaving ? $t("common.saving") : $t("common.save") }}
+                  </ion-button>
+                </div>
+              </div>
             </div>
-          </div>
-
-          <ion-list>
-            <!-- First Name -->
-            <ion-item>
-              <ion-label position="stacked">{{
-                $t("profileUpdate.firstName")
-              }}</ion-label>
-              <ion-input
-                v-model="formData.first_name"
-                type="text"
-                :placeholder="$t('profileUpdate.enterFirstName')"
-              ></ion-input>
-            </ion-item>
-
-            <!-- Last Name -->
-            <ion-item>
-              <ion-label position="stacked">{{
-                $t("profileUpdate.lastName")
-              }}</ion-label>
-              <ion-input
-                v-model="formData.last_name"
-                type="text"
-                :placeholder="$t('profileUpdate.enterLastName')"
-              ></ion-input>
-            </ion-item>
-
-            <!-- Username -->
-            <ion-item>
-              <ion-label position="stacked">{{
-                $t("profileUpdate.username")
-              }}</ion-label>
-              <ion-input
-                v-model="formData.username"
-                type="text"
-                :placeholder="$t('profileUpdate.enterUsername')"
-                :disabled="true"
-              ></ion-input>
-            </ion-item>
-
-            <!-- Phone Number -->
-            <ion-item>
-              <ion-label position="stacked">{{
-                $t("profileUpdate.phoneNumber")
-              }}</ion-label>
-              <ion-input
-                v-model="formData.phone"
-                type="tel"
-                :placeholder="$t('profileUpdate.enterPhoneNumber')"
-              ></ion-input>
-            </ion-item>
-          </ion-list>
-
-          <!-- Save Button -->
-          <div class="button-container">
-            <ion-button
-              expand="block"
-              @click="saveProfile"
-              :disabled="isSaving || !isFormValid"
-            >
-              <ion-icon
-                v-if="!isSaving"
-                :icon="saveOutline"
-                slot="start"
-              ></ion-icon>
-              <ion-spinner v-if="isSaving" slot="start"></ion-spinner>
-              {{ isSaving ? $t("common.saving") : $t("common.save") }}
-            </ion-button>
-          </div>
-        </div>
-      </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-content>
   </ion-page>
 </template>
@@ -119,6 +131,9 @@ import {
   IonIcon,
   IonSpinner,
   toastController,
+  IonGrid,
+  IonRow,
+  IonCol,
 } from "@ionic/vue";
 import { personCircleOutline, saveOutline } from "ionicons/icons";
 // @ts-expect-error - API module doesn't have type definitions
@@ -261,6 +276,15 @@ onMounted(() => {
 </script>
 
 <style scoped>
+ion-grid {
+  padding: 0;
+  height: 100%;
+}
+
+ion-row {
+  height: 100%;
+}
+
 .profile-update-container {
   padding: 0;
   min-height: 100%;

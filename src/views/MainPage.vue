@@ -4,6 +4,9 @@
       <ion-toolbar>
         <ion-title>{{ $t("main.myGroups") }}</ion-title>
         <ion-buttons slot="end">
+          <ion-button @click="openCreateGroupModal">
+            <ion-icon :icon="addOutline"></ion-icon>
+          </ion-button>
           <ion-button @click="loadGroups">
             <ion-icon :icon="refresh"></ion-icon>
           </ion-button>
@@ -16,7 +19,9 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
 
-      <div class="groups-container">
+      <ion-grid class="groups-container">
+        <ion-row>
+          <ion-col size-lg="8" size-md="10" size-sm="12" offset-lg="2" offset-md="1">
         <!-- Teacher Stats Card -->
         <ion-card v-if="!isLoading" class="stats-card">
           <ion-card-content>
@@ -59,10 +64,24 @@
             @click="openGroup(group)"
           >
             <ion-card-header>
-              <ion-card-title>{{ group.name }}</ion-card-title>
-              <ion-card-subtitle>{{
-                `${group.level?.level} - ${group.level?.title}` || "No Course"
-              }}</ion-card-subtitle>
+              <div class="card-header-wrapper">
+                <div class="title-section">
+                  <ion-card-title>{{ group.name }}</ion-card-title>
+                  <ion-card-subtitle>{{
+                    `${group.level?.level} - ${group.level?.title}` ||
+                    "No Course"
+                  }}</ion-card-subtitle>
+                </div>
+                <ion-button
+                  fill="clear"
+                  color="danger"
+                  size="small"
+                  class="delete-btn"
+                  @click.stop="confirmDeleteGroup(group)"
+                >
+                  <ion-icon slot="icon-only" :icon="trashOutline"></ion-icon>
+                </ion-button>
+              </div>
             </ion-card-header>
 
             <ion-card-content>
@@ -87,7 +106,9 @@
             </ion-card-content>
           </ion-card>
         </div>
-      </div>
+        </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-content>
   </ion-page>
 </template>
@@ -114,15 +135,23 @@ import {
   IonRefresher,
   IonRefresherContent,
   toastController,
+  modalController,
+  alertController,
+  IonGrid,
+  IonRow,
+  IOnCol
 } from "@ionic/vue";
 import {
   peopleOutline,
   locationOutline,
   refresh,
   schoolOutline,
+  addOutline,
+  trashOutline,
 } from "ionicons/icons";
-// @ts-ignore
+// @ts-expect-error - API module uses CommonJS
 import { groupsAPI, groupStudentsAPI } from "@/utils/api.js";
+import CreateGroupModal from "@/components/CreateGroupModal.vue";
 
 const router = useRouter();
 const { t } = useI18n();
@@ -191,6 +220,68 @@ const openGroup = (group: any) => {
   router.push(`/group/${group.id}`);
 };
 
+const confirmDeleteGroup = async (group: any) => {
+  const alert = await alertController.create({
+    header: t("main.deleteGroup"),
+    message: t("main.confirmDeleteGroup", { name: group.name }),
+    buttons: [
+      {
+        text: t("common.cancel"),
+        role: "cancel",
+      },
+      {
+        text: t("common.delete"),
+        role: "destructive",
+        handler: async () => {
+          await deleteGroup(group.id);
+        },
+      },
+    ],
+  });
+
+  await alert.present();
+};
+
+const deleteGroup = async (groupId: string) => {
+  try {
+    await groupsAPI.delete(groupId);
+
+    const toast = await toastController.create({
+      message: t("main.groupDeleted"),
+      duration: 2000,
+      color: "success",
+    });
+    await toast.present();
+
+    // Reload groups
+    await loadGroups();
+  } catch (error: any) {
+    console.error("Error deleting group:", error);
+
+    const toast = await toastController.create({
+      message: error.message || t("common.error"),
+      duration: 3000,
+      color: "danger",
+    });
+    await toast.present();
+  }
+};
+
+const openCreateGroupModal = async () => {
+  const modal = await modalController.create({
+    component: CreateGroupModal,
+  });
+
+  await modal.present();
+
+  const { data } = await modal.onWillDismiss();
+
+  if (data?.created) {
+    // Reload groups after successful creation
+    await loadGroups();
+  }
+};
+
 const getStatusClass = (status: string) => {
   if (!status) return "status-active";
 
@@ -218,13 +309,14 @@ onMounted(() => {
 }
 
 .stats-card {
-  margin-bottom: 24px;
   background: linear-gradient(
     135deg,
     var(--ion-color-primary),
     var(--ion-color-primary-shade)
   );
   color: white;
+  margin: 0;
+  margin-bottom: 24px;
 }
 
 .stats-card ion-card-content {
@@ -245,7 +337,7 @@ onMounted(() => {
 }
 
 .stat-icon {
-  font-size: 48px;
+  font-size: 20px;
   color: rgba(255, 255, 255, 0.9);
 }
 
@@ -254,7 +346,7 @@ onMounted(() => {
 }
 
 .stat-label {
-  font-size: 13px;
+  font-size: 10px;
   margin: 0 0 4px;
   opacity: 0.9;
   text-transform: uppercase;
@@ -263,7 +355,7 @@ onMounted(() => {
 }
 
 .stat-value {
-  font-size: 32px;
+  font-size: 25px;
   font-weight: 700;
   margin: 0;
   line-height: 1;
@@ -313,6 +405,25 @@ onMounted(() => {
   margin: 0;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  border-radius: 18px;
+}
+
+.card-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.title-section {
+  flex: 1;
+  min-width: 0;
+}
+
+.delete-btn {
+  flex-shrink: 0;
+  margin: -8px -8px 0 0;
 }
 
 .group-card:hover {

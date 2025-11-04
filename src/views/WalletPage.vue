@@ -27,95 +27,107 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
 
-      <div class="wallet-container">
-        <!-- Wallet Balance Card -->
-        <ion-card class="wallet-card">
-          <ion-card-content>
-            <div class="wallet-header">
-              <div class="wallet-icon">
-                <ion-icon :icon="walletOutline"></ion-icon>
+      <ion-grid class="wallet-container">
+        <ion-row>
+          <ion-col
+            size-lg="8"
+            size-md="10"
+            size-sm="12"
+            offset-lg="2"
+            offset-md="1"
+          >
+            <!-- Wallet Balance Card -->
+            <ion-card class="wallet-card">
+              <ion-card-content>
+                <div class="wallet-header">
+                  <div class="wallet-icon">
+                    <ion-icon :icon="walletOutline"></ion-icon>
+                  </div>
+                  <h3>{{ $t("wallet.currentBalance") }}</h3>
+                </div>
+
+                <div class="balance-amount">
+                  <span class="currency">UZS</span>
+                  <span class="amount">{{ formatBalance(balance) }}</span>
+                </div>
+
+                <div class="wallet-footer">
+                  <div class="wallet-info">
+                    <ion-icon :icon="timeOutline"></ion-icon>
+                    <span
+                      >{{ $t("wallet.lastUpdated") }}: {{ lastUpdated }}</span
+                    >
+                  </div>
+                </div>
+              </ion-card-content>
+            </ion-card>
+
+            <!-- Transactions Section -->
+            <div class="transactions-section">
+              <div class="section-header">
+                <h2>{{ $t("wallet.transactions") }}</h2>
+                <ion-badge color="primary">{{ transactions.length }}</ion-badge>
               </div>
-              <h3>{{ $t("wallet.currentBalance") }}</h3>
+
+              <ion-spinner
+                v-if="isLoading"
+                name="crescent"
+                class="loading-spinner"
+              ></ion-spinner>
+
+              <div v-else-if="transactions.length === 0" class="empty-state">
+                <ion-icon :icon="receiptOutline" class="empty-icon"></ion-icon>
+                <p>{{ $t("wallet.noTransactions") }}</p>
+              </div>
+
+              <ion-list v-else class="transactions-list">
+                <ion-item
+                  v-for="transaction in transactions"
+                  :key="transaction.id"
+                  class="transaction-item"
+                >
+                  <div
+                    class="transaction-icon"
+                    slot="start"
+                    :class="getTransactionTypeClass(transaction.type)"
+                  >
+                    <ion-icon
+                      :icon="getTransactionIcon(transaction.type)"
+                    ></ion-icon>
+                  </div>
+
+                  <ion-label>
+                    <h3>
+                      {{
+                        transaction.description ||
+                        getTransactionTypeName(transaction.type)
+                      }}
+                    </h3>
+                    <p>{{ formatDate(transaction.created_at) }}</p>
+                    <p v-if="transaction.status" class="transaction-status">
+                      Status: {{ transaction.status }}
+                    </p>
+                  </ion-label>
+
+                  <div
+                    slot="end"
+                    class="transaction-amount"
+                    :class="getAmountClass(transaction.type)"
+                  >
+                    <span class="amount-sign">{{
+                      getAmountSign(transaction.type)
+                    }}</span>
+                    <span class="amount-value">{{
+                      formatAmount(transaction.amount)
+                    }}</span>
+                    <span class="currency-small">UZS</span>
+                  </div>
+                </ion-item>
+              </ion-list>
             </div>
-
-            <div class="balance-amount">
-              <span class="currency">UZS</span>
-              <span class="amount">{{ formatBalance(balance) }}</span>
-            </div>
-
-            <div class="wallet-footer">
-              <div class="wallet-info">
-                <ion-icon :icon="timeOutline"></ion-icon>
-                <span>{{ $t("wallet.lastUpdated") }}: {{ lastUpdated }}</span>
-              </div>
-            </div>
-          </ion-card-content>
-        </ion-card>
-
-        <!-- Transactions Section -->
-        <div class="transactions-section">
-          <div class="section-header">
-            <h2>{{ $t("wallet.transactions") }}</h2>
-            <ion-badge color="primary">{{ transactions.length }}</ion-badge>
-          </div>
-
-          <ion-spinner
-            v-if="isLoading"
-            name="crescent"
-            class="loading-spinner"
-          ></ion-spinner>
-
-          <div v-else-if="transactions.length === 0" class="empty-state">
-            <ion-icon :icon="receiptOutline" class="empty-icon"></ion-icon>
-            <p>{{ $t("wallet.noTransactions") }}</p>
-          </div>
-
-          <ion-list v-else class="transactions-list">
-            <ion-item
-              v-for="transaction in transactions"
-              :key="transaction.id"
-              class="transaction-item"
-            >
-              <div
-                class="transaction-icon"
-                slot="start"
-                :class="getTransactionTypeClass(transaction.type)"
-              >
-                <ion-icon
-                  :icon="getTransactionIcon(transaction.type)"
-                ></ion-icon>
-              </div>
-
-              <ion-label>
-                <h3>
-                  {{
-                    transaction.description ||
-                    getTransactionTypeName(transaction.type)
-                  }}
-                </h3>
-                <p>{{ formatDate(transaction.created_at) }}</p>
-                <p v-if="transaction.status" class="transaction-status">
-                  Status: {{ transaction.status }}
-                </p>
-              </ion-label>
-
-              <div
-                slot="end"
-                class="transaction-amount"
-                :class="getAmountClass(transaction.type)"
-              >
-                <span class="amount-sign">{{
-                  getAmountSign(transaction.type)
-                }}</span>
-                <span class="amount-value">{{
-                  formatAmount(transaction.amount)
-                }}</span>
-                <span class="currency-small">UZS</span>
-              </div>
-            </ion-item>
-          </ion-list>
-        </div>
-      </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-content>
   </ion-page>
 </template>
@@ -145,6 +157,9 @@ import {
   toastController,
   actionSheetController,
   alertController,
+  IonGrid,
+  IonRow,
+  IonCol,
 } from "@ionic/vue";
 import {
   walletOutline,
@@ -485,6 +500,7 @@ ion-title {
     var(--ion-color-primary-shade) 100%
   );
   color: white;
+  margin: 0;
   margin-bottom: 24px;
 }
 

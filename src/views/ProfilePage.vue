@@ -7,7 +7,9 @@
     </ion-header>
 
     <ion-content :fullscreen="true">
-      <div class="profile-container">
+      <ion-grid class="profile-container">
+        <ion-row>
+           <ion-col size-lg="8" size-md="10" size-sm="12" offset-lg="2" offset-md="1">
         <!-- User Info Card -->
         <ion-card class="user-card">
           <ion-card-content>
@@ -100,12 +102,10 @@
             </ion-label>
           </ion-item>
         </ion-list>
-
-        <!-- App Version -->
-        <div class="app-version">
-          <p>Version 1.0.0</p>
-        </div>
-      </div>
+        
+           </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-content>
   </ion-page>
 </template>
@@ -131,6 +131,9 @@ import {
   alertController,
   toastController,
   actionSheetController,
+  IonGrid,
+  IonRow,
+  IonCol
 } from "@ionic/vue";
 import {
   personCircleOutline,
@@ -142,6 +145,7 @@ import {
 } from "ionicons/icons";
 // @ts-expect-error - API module doesn't have type definitions
 import { authAPI } from "@/utils/api.js";
+import { Share } from '@capacitor/share';
 
 const router = useRouter();
 const { t, locale } = useI18n();
@@ -262,31 +266,15 @@ const setLanguage = async (lang: string) => {
 const shareApp = async () => {
   const shareText = "Check out this amazing Teachers App!";
 
-  if (navigator.share) {
     try {
-      await navigator.share({
+      await Share.share({
         title: "Teachers App",
         text: shareText,
-        url: window.location.origin,
+        url: "https://app-teachers.impulselc.uz",
       });
     } catch (error) {
       console.log("Error sharing:", error);
     }
-  } else {
-    const toast = await toastController.create({
-      message: "Share link: " + window.location.origin,
-      duration: 3000,
-      buttons: [
-        {
-          text: "Copy",
-          handler: () => {
-            navigator.clipboard.writeText(window.location.origin);
-          },
-        },
-      ],
-    });
-    await toast.present();
-  }
 };
 
 const confirmLogout = async () => {
@@ -361,7 +349,9 @@ onMounted(() => {
 }
 
 .user-card {
+  margin: 0;
   margin-bottom: 24px;
+  box-shadow: none;
 }
 
 .user-info {
@@ -389,6 +379,7 @@ onMounted(() => {
   font-size: 22px;
   font-weight: 600;
   margin: 0 0 4px;
+  color: black;
 }
 
 .user-details p {

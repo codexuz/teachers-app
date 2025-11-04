@@ -36,141 +36,159 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
 
-      <!-- Students Segment -->
-      <div v-show="selectedSegment === 'students'" class="segment-content">
-        <ion-spinner
-          v-if="isLoading"
-          name="crescent"
-          class="loading-spinner"
-        ></ion-spinner>
-
-        <div v-else-if="students.length === 0" class="empty-state">
-          <ion-icon :icon="peopleOutline" class="empty-icon"></ion-icon>
-          <h3>{{ $t("groupDetails.noStudents") }}</h3>
-          <p>{{ $t("groupDetails.noStudentsEnrolled") }}</p>
-        </div>
-
-        <ion-list v-else class="students-list">
-          <ion-item
-            v-for="student in students"
-            :key="student.user_id"
-            button
-            @click="showStudentOptions(student)"
-            class="student-item"
+      <ion-grid>
+        <ion-row>
+          <ion-col
+            size-lg="8"
+            size-md="10"
+            size-sm="12"
+            offset-lg="2"
+            offset-md="1"
           >
-            <div class="student-avatar" slot="start">
-              <img
-                v-if="student.avatar_url"
-                :src="student.avatar_url"
-                :alt="student.first_name"
-              />
-              <ion-icon v-else :icon="personCircleOutline"></ion-icon>
+            <!-- Students Segment -->
+            <div
+              v-show="selectedSegment === 'students'"
+              class="segment-content"
+            >
+              <ion-spinner
+                v-if="isLoading"
+                name="crescent"
+                class="loading-spinner"
+              ></ion-spinner>
+
+              <div v-else-if="students.length === 0" class="empty-state">
+                <ion-icon :icon="peopleOutline" class="empty-icon"></ion-icon>
+                <h3>{{ $t("groupDetails.noStudents") }}</h3>
+                <p>{{ $t("groupDetails.noStudentsEnrolled") }}</p>
+              </div>
+
+              <ion-list v-else class="students-list">
+                <ion-item
+                  v-for="student in students"
+                  :key="student.user_id"
+                  button
+                  @click="showStudentOptions(student)"
+                  class="student-item"
+                >
+                  <div class="student-avatar" slot="start">
+                    <img
+                      v-if="student.avatar_url"
+                      :src="student.avatar_url"
+                      :alt="student.first_name"
+                    />
+                    <ion-icon v-else :icon="personCircleOutline"></ion-icon>
+                  </div>
+
+                  <ion-label>
+                    <h2>{{ student.first_name }} {{ student.last_name }}</h2>
+                    <p>@{{ student.username }}</p>
+                  </ion-label>
+
+                  <div slot="end" class="student-status">
+                    <ion-badge
+                      :color="
+                        student.GroupStudent?.status === 'active'
+                          ? 'success'
+                          : 'medium'
+                      "
+                    >
+                      {{ student.GroupStudent?.status || "active" }}
+                    </ion-badge>
+                  </div>
+                </ion-item>
+              </ion-list>
             </div>
 
-            <ion-label>
-              <h2>{{ student.first_name }} {{ student.last_name }}</h2>
-              <p>@{{ student.username }}</p>
-            </ion-label>
+            <!-- Attendance Segment -->
+            <div
+              v-show="selectedSegment === 'attendance'"
+              class="segment-content"
+            >
+              <div class="attendance-controls">
+                <ion-button
+                  @click="showDatePicker"
+                  fill="outline"
+                  size="small"
+                  class="date-picker-button"
+                >
+                  <ion-icon :icon="calendarOutline" slot="start"></ion-icon>
+                  {{ formatDateDisplay(selectedDate) }}
+                </ion-button>
 
-            <div slot="end" class="student-status">
-              <ion-badge
-                :color="
-                  student.GroupStudent?.status === 'active'
-                    ? 'success'
-                    : 'medium'
-                "
-              >
-                {{ student.GroupStudent?.status || "active" }}
-              </ion-badge>
+                <ion-button
+                  @click="saveAttendance"
+                  color="primary"
+                  size="small"
+                  :disabled="!hasAttendanceChanges"
+                >
+                  <ion-icon :icon="saveOutline" slot="start"></ion-icon>
+                  {{ $t("groupDetails.save") }}
+                </ion-button>
+              </div>
+
+              <ion-spinner
+                v-if="isLoadingAttendance"
+                name="crescent"
+                class="loading-spinner"
+              ></ion-spinner>
+
+              <div v-else-if="students.length === 0" class="empty-state">
+                <ion-icon :icon="calendarOutline" class="empty-icon"></ion-icon>
+                <h3>{{ $t("groupDetails.noStudents") }}</h3>
+                <p>{{ $t("groupDetails.addStudentsToMark") }}</p>
+              </div>
+
+              <ion-list v-else class="attendance-list">
+                <ion-item
+                  v-for="student in students"
+                  :key="student.user_id"
+                  class="attendance-item"
+                >
+                  <div class="student-avatar" slot="start">
+                    <img
+                      v-if="student.avatar_url"
+                      :src="student.avatar_url"
+                      :alt="student.first_name"
+                    />
+                    <ion-icon v-else :icon="personCircleOutline"></ion-icon>
+                  </div>
+
+                  <ion-label>
+                    <h3>{{ student.first_name }} {{ student.last_name }}</h3>
+                    <p>{{ student.username }}</p>
+                  </ion-label>
+
+                  <div slot="end" class="attendance-buttons">
+                    <ion-button
+                      :color="
+                        getAttendanceStatus(student.user_id) === 'present'
+                          ? 'success'
+                          : 'light'
+                      "
+                      size="small"
+                      @click="markAttendance(student.user_id, 'present')"
+                    >
+                      <ion-icon :icon="checkmarkCircleOutline"></ion-icon>
+                    </ion-button>
+
+                    <ion-button
+                      :color="
+                        getAttendanceStatus(student.user_id) === 'absent'
+                          ? 'danger'
+                          : 'light'
+                      "
+                      size="small"
+                      @click="markAttendance(student.user_id, 'absent')"
+                    >
+                      <ion-icon :icon="closeCircleOutline"></ion-icon>
+                    </ion-button>
+                  </div>
+                </ion-item>
+              </ion-list>
             </div>
-          </ion-item>
-        </ion-list>
-      </div>
-
-      <!-- Attendance Segment -->
-      <div v-show="selectedSegment === 'attendance'" class="segment-content">
-        <div class="attendance-controls">
-          <ion-button
-            @click="showDatePicker"
-            fill="outline"
-            size="small"
-            class="date-picker-button"
-          >
-            <ion-icon :icon="calendarOutline" slot="start"></ion-icon>
-            {{ formatDateDisplay(selectedDate) }}
-          </ion-button>
-
-          <ion-button
-            @click="saveAttendance"
-            color="primary"
-            size="small"
-            :disabled="!hasAttendanceChanges"
-          >
-            <ion-icon :icon="saveOutline" slot="start"></ion-icon>
-            {{ $t("groupDetails.save") }}
-          </ion-button>
-        </div>
-
-        <ion-spinner
-          v-if="isLoadingAttendance"
-          name="crescent"
-          class="loading-spinner"
-        ></ion-spinner>
-
-        <div v-else-if="students.length === 0" class="empty-state">
-          <ion-icon :icon="calendarOutline" class="empty-icon"></ion-icon>
-          <h3>{{ $t("groupDetails.noStudents") }}</h3>
-          <p>{{ $t("groupDetails.addStudentsToMark") }}</p>
-        </div>
-
-        <ion-list v-else class="attendance-list">
-          <ion-item
-            v-for="student in students"
-            :key="student.user_id"
-            class="attendance-item"
-          >
-            <div class="student-avatar" slot="start">
-              <img
-                v-if="student.avatar_url"
-                :src="student.avatar_url"
-                :alt="student.first_name"
-              />
-              <ion-icon v-else :icon="personCircleOutline"></ion-icon>
-            </div>
-
-            <ion-label>
-              <h3>{{ student.first_name }} {{ student.last_name }}</h3>
-              <p>{{ student.username }}</p>
-            </ion-label>
-
-            <div slot="end" class="attendance-buttons">
-              <ion-button
-                :color="
-                  getAttendanceStatus(student.user_id) === 'present'
-                    ? 'success'
-                    : 'light'
-                "
-                size="small"
-                @click="markAttendance(student.user_id, 'present')"
-              >
-                <ion-icon :icon="checkmarkCircleOutline"></ion-icon>
-              </ion-button>
-
-              <ion-button
-                :color="
-                  getAttendanceStatus(student.user_id) === 'absent'
-                    ? 'danger'
-                    : 'light'
-                "
-                size="small"
-                @click="markAttendance(student.user_id, 'absent')"
-              >
-                <ion-icon :icon="closeCircleOutline"></ion-icon>
-              </ion-button>
-            </div>
-          </ion-item>
-        </ion-list>
-      </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-content>
   </ion-page>
 </template>
@@ -201,6 +219,10 @@ import {
   toastController,
   alertController,
   actionSheetController,
+  IonGrid,
+  IonRow,
+  IonCol,
+  modalController,
 } from "@ionic/vue";
 import {
   peopleOutline,
@@ -214,6 +236,7 @@ import {
 } from "ionicons/icons";
 // @ts-expect-error - API module doesn't have type definitions
 import { groupsAPI, attendanceAPI, groupStudentsAPI } from "@/utils/api.js";
+import SelectGroupModal from "@/components/SelectGroupModal.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -480,6 +503,16 @@ const showStudentOptions = async (student: any) => {
     });
   }
 
+  // Transfer button
+  buttons.push({
+    text: t("groupDetails.transferStudent"),
+    handler: () => {
+      showTransferOptions(
+        student.user_id,
+        student.first_name + " " + student.last_name
+      );
+    },
+  });
 
   // Delete button
   buttons.push({
@@ -523,6 +556,98 @@ const updateStudentStatus = async (groupStudentId: string, status: string) => {
     await loadGroupData();
   } catch (error: any) {
     console.error("Error updating student status:", error);
+
+    const toast = await toastController.create({
+      message: error.message || t("common.error"),
+      duration: 3000,
+      color: "danger",
+    });
+    await toast.present();
+  }
+};
+
+const showTransferOptions = async (studentId: string, studentName: string) => {
+  try {
+    const modal = await modalController.create({
+      component: SelectGroupModal,
+      componentProps: {
+        studentName,
+        currentGroupId: groupId.value,
+      },
+    });
+
+    await modal.present();
+
+    const { data } = await modal.onWillDismiss();
+
+    if (data?.selectedGroup) {
+      confirmTransferStudent(
+        studentId,
+        data.selectedGroup.id,
+        studentName,
+        data.selectedGroup.name
+      );
+    }
+  } catch (error: any) {
+    console.error("Error showing transfer options:", error);
+
+    const toast = await toastController.create({
+      message: error.message || t("common.error"),
+      duration: 3000,
+      color: "danger",
+    });
+    await toast.present();
+  }
+};
+
+const confirmTransferStudent = async (
+  studentId: string,
+  newGroupId: string,
+  studentName: string,
+  targetGroupName: string
+) => {
+  const alert = await alertController.create({
+    header: t("groupDetails.confirmTransfer"),
+    message: t("groupDetails.confirmTransferMessage", {
+      name: studentName,
+      group: targetGroupName,
+    }),
+    buttons: [
+      {
+        text: t("common.cancel"),
+        role: "cancel",
+      },
+      {
+        text: t("groupDetails.transfer"),
+        handler: () => {
+          transferStudent(studentId, newGroupId);
+        },
+      },
+    ],
+  });
+
+  await alert.present();
+};
+
+const transferStudent = async (studentId: string, newGroupId: string) => {
+  try {
+    await groupStudentsAPI.transferStudent(
+      studentId,
+      groupId.value,
+      newGroupId
+    );
+
+    const toast = await toastController.create({
+      message: t("groupDetails.studentTransferred"),
+      duration: 2000,
+      color: "success",
+    });
+    await toast.present();
+
+    // Reload students
+    await loadGroupData();
+  } catch (error: any) {
+    console.error("Error transferring student:", error);
 
     const toast = await toastController.create({
       message: error.message || t("common.error"),
@@ -596,6 +721,15 @@ onMounted(() => {
 </script>
 
 <style scoped>
+ion-grid {
+  padding: 0;
+  height: 100%;
+}
+
+ion-row {
+  height: 100%;
+}
+
 .segment-content {
   padding: 16px;
   min-height: calc(100vh - 112px);

@@ -28,7 +28,9 @@
               type="password"
               :placeholder="$t('auth.enterPassword')"
               @keyup.enter="handleLogin"
-            ></ion-input>
+            >
+              <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+            </ion-input>
           </ion-item>
         </ion-list>
 
@@ -64,6 +66,7 @@ import {
   IonText,
   IonSpinner,
   toastController,
+  IonInputPasswordToggle 
 } from "@ionic/vue";
 import { authAPI } from "@/utils/api.js";
 import Logo from "@/assets/images/logo.png";

@@ -50,7 +50,17 @@
     "paused": "Приостановлен",
     "failedToLoad": "Не удалось загрузить группы",
     "totalStudents": "Всего студентов",
-    "totalGroups": "Всего групп"
+    "totalGroups": "Всего групп",
+    "createGroup": "Создать группу",
+    "groupName": "Название группы",
+    "groupNamePlaceholder": "Введите название группы",
+    "level": "Уровень",
+    "selectLevel": "Выберите уровень",
+    "roomPlaceholder": "например, Комната 101",
+    "groupCreated": "Группа успешно создана",
+    "deleteGroup": "Удалить группу",
+    "confirmDeleteGroup": "Вы уверены, что хотите удалить группу \"{name}\"? Это действие нельзя отменить.",
+    "groupDeleted": "Группа успешно удалена"
   },
   "wallet": {
     "wallet": "Кошелек",
@@ -151,7 +161,18 @@
     "statusUpdated": "Статус студента успешно обновлен",
     "deleteStudent": "Удалить студента",
     "confirmDeleteStudent": "Вы уверены, что хотите удалить этого студента из группы?",
-    "studentDeleted": "Студент успешно удален из группы"
+    "studentDeleted": "Студент успешно удален из группы",
+    "transferStudent": "Перевести студента",
+    "selectTargetGroup": "Выберите группу для перевода {name}:",
+    "transfer": "Перевести",
+    "confirmTransfer": "Подтвердить перевод",
+    "confirmTransferMessage": "Вы уверены, что хотите перевести {name} в группу \"{group}\"?",
+    "studentTransferred": "Студент успешно переведен",
+    "noOtherGroups": "Нет других доступных групп",
+    "searchGroups": "Поиск групп...",
+    "noGroupsFound": "Группы не найдены",
+    "tryDifferentSearch": "Попробуйте другой поисковый запрос",
+    "teacher": "Учитель"
   },
   "language": {
     "title": "Выберите язык",

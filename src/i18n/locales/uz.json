@@ -50,7 +50,17 @@
     "paused": "To'xtatilgan",
     "failedToLoad": "Guruhlarni yuklashda xatolik",
     "totalStudents": "Jami o'quvchilar",
-    "totalGroups": "Jami guruhlar"
+    "totalGroups": "Jami guruhlar",
+    "createGroup": "Guruh yaratish",
+    "groupName": "Guruh nomi",
+    "groupNamePlaceholder": "Guruh nomini kiriting",
+    "level": "Daraja",
+    "selectLevel": "Darajani tanlang",
+    "roomPlaceholder": "masalan, 101-xona",
+    "groupCreated": "Guruh muvaffaqiyatli yaratildi",
+    "deleteGroup": "Guruhni o'chirish",
+    "confirmDeleteGroup": "\"{name}\" guruhini o'chirishga ishonchingiz komilmi? Bu amalni bekor qilib bo'lmaydi.",
+    "groupDeleted": "Guruh muvaffaqiyatli o'chirildi"
   },
   "wallet": {
     "wallet": "Hamyon",
@@ -151,7 +161,18 @@
     "statusUpdated": "O'quvchi holati muvaffaqiyatli yangilandi",
     "deleteStudent": "O'quvchini o'chirish",
     "confirmDeleteStudent": "Bu o'quvchini guruhdan olib tashlashga ishonchingiz komilmi?",
-    "studentDeleted": "O'quvchi guruhdan muvaffaqiyatli olib tashlandi"
+    "studentDeleted": "O'quvchi guruhdan muvaffaqiyatli olib tashlandi",
+    "transferStudent": "O'quvchini ko'chirish",
+    "selectTargetGroup": "{name}ni qaysi guruhga ko'chirish kerak:",
+    "transfer": "Ko'chirish",
+    "confirmTransfer": "Ko'chirishni tasdiqlash",
+    "confirmTransferMessage": "{name}ni \"{group}\" guruhiga ko'chirishga ishonchingiz komilmi?",
+    "studentTransferred": "O'quvchi muvaffaqiyatli ko'chirildi",
+    "noOtherGroups": "Boshqa guruhlar mavjud emas",
+    "searchGroups": "Guruhlarni qidirish...",
+    "noGroupsFound": "Guruhlar topilmadi",
+    "tryDifferentSearch": "Boshqa qidiruv so'rovini sinab ko'ring",
+    "teacher": "O'qituvchi"
   },
   "language": {
     "title": "Tilni tanlang",

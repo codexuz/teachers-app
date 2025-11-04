@@ -1,4 +1,5 @@
 // API utility functions for handling HTTP requests
+import router from "@/router";
 
 const API_BASE_URL = "https://backend.impulselc.uz/api";
 
@@ -231,7 +232,17 @@ async function apiRequest(endpoint, options = {}) {
           localStorage.removeItem("session_id");
           localStorage.removeItem("token_expires_at");
           localStorage.removeItem("user");
+          // Redirect to login page
+          router.push("/login");
         }
+      } else {
+        // No refresh token available, clear auth data and redirect to login
+        localStorage.removeItem("token");
+        localStorage.removeItem("refresh_token");
+        localStorage.removeItem("session_id");
+        localStorage.removeItem("token_expires_at");
+        localStorage.removeItem("user");
+        router.push("/login");
       }
     }
 
@@ -1026,6 +1037,16 @@ export const groupStudentsAPI = {
     apiRequest(`/group-students/${groupStudentId}`, {
       method: "PATCH",
       body: JSON.stringify({ status }),
+    }),
+
+  transferStudent: (studentId, currentGroupId, newGroupId) =>
+    apiRequest(`/group-students/transfer`, {
+      method: "POST",
+      body: JSON.stringify({
+        student_id: studentId,
+        from_group_id: currentGroupId,
+        to_group_id: newGroupId,
+      }),
     }),
 
   // Remove student from group
